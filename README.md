@@ -63,7 +63,7 @@ Ask yourself these questions:
  * What kinds of things might I need to do with my maze?
  * How can I represent the maze in a way that will help me do the above in my code?
 
-Later, you may discover ways you need to work with your maze that  you didn't anticipate. That's ok, don't be afraid to refactor how you represent it as you go.
+Later, you may discover you need to work with your maze in ways you didn't anticipate. That's ok, don't be afraid to refactor how you represent it as you go.
 
 There's a saying, "90% of programming is choosing the right data structures." Pick something simple and flexible to start, you can always change up later.
 
@@ -75,7 +75,7 @@ Now you have your maze represented as some kind of data structure in code. Write
 
 Now the fun part. Your task is to write an algorithm that determines if a map is solvable or not. Your program can simply print out "Solvable" if there's a path from the start to the finish, or "Unsolvable" if no path exists. You do not need to actually return the path itself.
 
-Make sure you testing on different kinds of maps.
+Make sure you test on different kinds of maps. A couple examples are contained in this repository.
 
 ### Think it Through
 
@@ -83,13 +83,13 @@ Make sure you testing on different kinds of maps.
 * Can a computer do it the way you did?
 * If not, why? What kind of approach(es) might work for a computer?
 * Can you break those steps down to a pseudocode algorithm?
-* When you consider your possible solution, how will you keep track of things in your algorithm.
+* What sort of data structures will you use to keep track of things?
 
 ### Stuck? Transport yourself to Imagination Land
 
 <img src='assets/imagine.gif' width='300px'>
 
-Close your eyes and imagine yourself in the maze. It's pitch black. You can drop a candle on each tile of the maze to illuminate the ones around it. How do you find your way to the end? Luckily there's no minotaur in this one (but it'd be pretty sweet if you added it later).
+Close your eyes and imagine yourself in the maze. It's pitch black and the you're standing on the start tile. You can drop a candle on each tile of the maze to illuminate the ones around it. How do you find your way to the end? Luckily there's no minotaur in this one (but it'd be pretty sweet if you added it later).
 
 
 ## Release 4, Show and Tell
