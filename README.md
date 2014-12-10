@@ -9,6 +9,8 @@ In this challenge you will need to create a program that can solve mazes. You wi
  * Uses a strategy to determine if the Maze is solvable
  * Visualizes (animates) your strategy to show it in action
 
+**Make sure you test**. This challenge can easily go awry if you're not careful testing even your most basic methods. For example, a simple bug like mixing up x and y could have some confusing and non-obvious consequences.
+
 ## Release 1, Reading the Maze
 
 Your maze will be defined in a text file that looks like this:
@@ -44,7 +46,7 @@ See how you can go around in a circle (look at coordinate `2,1`)? Make sure your
 
 _Note: For the same reason, hallways will always be one tile wide_
 
-## Reading a file
+### Reading a file
 
 You can read a file in with Ruby's `File` class. The easiest way to do this is to use `File.read`. For example:
 
@@ -52,7 +54,7 @@ You can read a file in with Ruby's `File` class. The easiest way to do this is t
 map_string = File.read('my_map.txt')
 ```
 
-## Representing a Maze
+### Representing a Maze
 
 Once you have the Maze file read into a String, you will need to convert the string into some data structure that will help you work with it in _code_. A big string is pretty hard to work with when you're thinking about different kinds of cells, or where the coordinates of things are on the map.
 
@@ -64,10 +66,6 @@ Ask yourself these questions:
 Later, you may discover ways you need to work with your maze that  you didn't anticipate. That's ok, don't be afraid to refactor how you represent it as you go.
 
 There's a saying, "90% of programming is choosing the right data structures." Pick something simple and flexible to start, you can always change up later.
-
-## Testing
-
-This challenge can easily go awry if you're not careful testing even your most basic methods. For example, a simple bug like mixing up x and y could have some confusing and non-obvious consequences.
 
 ## Release 2, Visualize It
 
@@ -119,22 +117,23 @@ end
 What does your algorithm's search pattern look like? Commit a description in `notes.md`.
 
 
-## Stretch: Strategery
-You have one solving strategy, now try building another.
+## Release 5, Harder Mazes & Open Terrain
 
-One should look something like this:
+Let's relax the constraints on our maps. Before we didn't have wide hallways, open terrain, or "cycles." Now we will.
 
-![](assets/dfs.gif)
+```
+...#.....#
+...#.#.#.#
+...#.#.#.#
+.#...#.#*#
+.#########
+........o.
+####.#####
+..........
+.###.####.
+...#......
+```
 
-And the other should look like this:
-
-![](assets/bfs.gif)
-
-See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other explores all paths, one cell at a time. Believe it or not, these two approaches are basically the same except for one minor detail.
-
-## Stretch: Open Terrain
-
-Let's relax the constraints on our maps. You might need to make a couple critical tweaks, but believe it or not, your algorithm should be able to handle open terrain just as well as it handles the twist and turns of a maze. Try out a few open maps, such as this one:
 
 ```
 .................
@@ -151,10 +150,23 @@ Let's relax the constraints on our maps. You might need to make a couple critica
 .................
 ```
 
- * Did it work?
-  * If not, figure out what you need to do to make it work.
- * Does it seem efficient?
- * How might you improve it?
+Does your algorithm still work? If not, why? What about this change is causing your strategy to fail? You might go back to imagination land and start dropping candles again.
 
-If you want to take steps to increase the efficiency of your search, you might try a [PriorityQueue](http://www.redblobgames.com/pathfinding/a-star/introduction.html#greedy-best-first) approach with a heuristic that helps prioritize which cells to explore first.
-Detail the differences between the two algorithms, and _why_ they differ the way they do in `notes.md`.
+Figure out how you need to change your approach to account for these new requirements. In addition to fixing your code, describe what went wrong in `notes.md`. If your code worked from the start, describe why.
+
+## Stretch: Strategery
+You have one solving strategy, now try building another.
+
+One should look something like this:
+
+![](assets/dfs.gif)
+
+And the other should look like this:
+
+![](assets/bfs.gif)
+
+See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other explores all paths, one cell at a time. Believe it or not, these two approaches are basically the same except for one minor detail.
+
+## Stretch: A* and Beyond
+
+Hungry for more? Kick up the difficulty and attempt the [A* Challenge](../../../a-star-challenge).
