@@ -1,6 +1,6 @@
 # Labyrinth
 
-> "So it was that the hero met the Minotaur in the gloomy depths of the Labyrinth and was not afraid." —Thesus and the Minotaur
+> "So it was that the hero met the Minotaur in the gloomy depths of the Labyrinth and was not afraid." —Theseus and the Minotaur
 
 In this challenge you will need to create a program that can solve mazes. You will build a program step by step to:
 
@@ -30,7 +30,7 @@ The maze does not "wrap", this isn't Pac-Man.
 
 ### Constraints
 
-All mazes will have corridors that are one tile wide. Unlike a true Labyrinth, Mazes _should not double back on themselves_. For example, this is invalid:
+Unlike a true Labyrinth, our Mazes _will not double back on themselves_. For example, this is invalid:
 
 ```
 o#........
@@ -41,6 +41,8 @@ o#........
 ```
 
 See how you can go around in a circle (look at coordinate `2,1`)? Make sure your maps do not have any of these "cycles."
+
+_Note: For the same reason, hallways will always be one tile wide_
 
 ## Reading a file
 
@@ -116,8 +118,9 @@ end
 
 What does your algorithm's search pattern look like? Commit a description in `notes.md`.
 
+
 ## Stretch: Strategery
-You have one solving strategy, now you should build another.
+You have one solving strategy, now try building another.
 
 One should look something like this:
 
@@ -129,27 +132,29 @@ And the other should look like this:
 
 See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other explores all paths, one cell at a time. Believe it or not, these two approaches are basically the same except for one minor detail.
 
-Don't read on below until you have this working (or you've given up).
+## Stretch: Open Terrain
 
-### On the Shoulders of Giants
+Let's relax the constraints on our maps. You might need to make a couple critical tweaks, but believe it or not, your algorithm should be able to handle open terrain just as well as it handles the twist and turns of a maze. Try out a few open maps, such as this one:
 
-Alright, you have your two strategies. Chances are they're essentially the same, save for the data structure they use to keep track of unexplored tiles.
+```
+.................
+........#........
+........#.*......
+........#........
+........#........
+........#........
+........#........
+........#........
+........#........
+.o......#........
+........#........
+.................
+```
 
-The first strategy is known as a [depth-first search](http://en.wikipedia.org/wiki/Depth-first_search). It uses a **[Stack](http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)**.
+ * Did it work?
+  * If not, figure out what you need to do to make it work.
+ * Does it seem efficient?
+ * How might you improve it?
 
-The second strategy is known as a [breadth-first-search](http://en.wikipedia.org/wiki/Breadth-first_search). It uses a **[Queue](http://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)**.
-
-#### Stack? Queue?
-
-You can use Ruby's own Array as a Stack or a Queue.
-
- * Using `#push` and `#pop` allows you to use Array as a "Last In First Out" (LIFO) data structure, aka a Stack.
- * Using `#push` and `#shift` allows you to use Array as a "First In First Out" (FIFO) data structure, aka a Queue.
-
-#### Know your History
-
-DFS and BFS are classic algorithms in computer-science. Specifically, they're graph-search algorithms, and that's no accident. Your maze is just an [undirected graph](http://en.wikipedia.org/wiki/Graph_theory) of tiles. Each tile in the map is a _node_, with _edges_ pointing to neighboring cells.
-
-In all likelihood, you derived something that looks close to DFS and BFS yourself. This demonstrates the power of having good computer science fundamentals. While the problems we solve vary on the surface, many problems are just instances of a general _class_ of problems with known solutions. DFS was invented in the 19th century, BFS in the 1950s. Those who cannot learn from history are doomed to reimplement it.
-
-If you aren't already using stacks and queues in your strategies, refactor your code now. Both should use an iterative, not recursive, approach. In the truth, the code will be identical save the data structure but keep them separate for now instead of trying to DRY it up.
+If you want to take steps to increase the efficiency of your search, you might try a [PriorityQueue](http://www.redblobgames.com/pathfinding/a-star/introduction.html#greedy-best-first) approach with a heuristic that helps prioritize which cells to explore first.
+Detail the differences between the two algorithms, and _why_ they differ the way they do in `notes.md`.
