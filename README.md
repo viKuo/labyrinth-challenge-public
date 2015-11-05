@@ -117,7 +117,7 @@ end
 What does your algorithm's search pattern look like? Commit a description in `notes.md`.
 
 
-## Release 5, Harder Mazes & Open Terrain
+## Stretch: Harder Mazes & Open Terrain
 
 Let's relax the constraints on our maps. Before we didn't have wide hallways, open terrain, or "cycles." Now we will.
 
@@ -166,7 +166,3 @@ And the other should look like this:
 ![](assets/bfs.gif)
 
 See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other explores all paths, one cell at a time. Believe it or not, these two approaches are basically the same except for one minor detail.
-
-## Stretch: A* and Beyond
-
-Hungry for more? Kick up the difficulty and attempt the [A* Challenge](../../../a-star-challenge).
