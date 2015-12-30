@@ -11,7 +11,7 @@ In this challenge you will need to create a program that can solve mazes. You wi
 
 **Make sure you test**. This challenge can easily go awry if you're not careful testing even your most basic methods. For example, a simple bug like mixing up x and y could have some confusing and non-obvious consequences.
 
-## Release 1, Reading the Maze
+## Reading the Maze
 
 Your maze will be defined in a text file that looks like this:
 
@@ -30,6 +30,8 @@ o#........
 
 The maze does not "wrap", this isn't Pac-Man.
 
+You have been given a method called `read_maze` — it takes a file, and returns a 2D array representing the maze. See the spec file for an example of how this works.
+
 ### Constraints
 
 Unlike a true Labyrinth, our Mazes _will not double back on themselves_. For example, this is invalid:
@@ -42,40 +44,17 @@ o#........
 .......###
 ```
 
-See how you can go around in a circle (look at coordinate `2,1`)? Make sure your maps do not have any of these "cycles."
+See how you can go around in a circle (look at coordinate `2,1`)? Our maps do not have any of these "cycles."
 
 _Note: For the same reason, hallways will always be one tile wide_
 
-### Reading a file
+## Release 1, The Solver
 
-You can read a file in with Ruby's `File` class. The easiest way to do this is to use `File.read`. For example:
-
-```ruby
-map_string = File.read('my_map.txt')
-```
-
-### Representing a Maze
-
-Once you have the Maze file read into a String, you will need to convert the string into some data structure that will help you work with it in _code_. A big string is pretty hard to work with when you're thinking about different kinds of cells, or where the coordinates of things are on the map.
-
-Ask yourself these questions:
-
- * What kinds of things might I need to do with my maze?
- * How can I represent the maze in a way that will help me do the above in my code?
-
-Later, you may discover you need to work with your maze in ways you didn't anticipate. That's ok, don't be afraid to refactor how you represent it as you go.
-
-There's a saying, "90% of programming is choosing the right data structures." Pick something simple and flexible to start, you can always change up later.
-
-## Release 2, Visualize It
-
-Now you have your maze represented as some kind of data structure in code. Write a method that takes this data structure and turns it _back_ into a String suitable for printing to your terminal. This isn't too complicated, but will be important when we start visualizing how our solving strategy works.
-
-## Release 3, The Solver
-
-Now the fun part. Your task is to write an algorithm that determines if a map is solvable or not. Your program can simply print out "Solvable" if there's a path from the start to the finish, or "Unsolvable" if no path exists. You do not need to actually return the path itself.
+Your task is to write an algorithm that determines if a map is solvable or not. Your `solve` method, however it is written, should return `true` if the finish (`*`) is reachable from the start (`o`). It should return `false` if it is impossible to reach the end (no path exists). You do not need to actually return the path itself.
 
 Make sure you test on different kinds of maps. A couple examples are contained in this repository.
+
+Your solution should be recursive.
 
 ### Think it Through
 
@@ -92,16 +71,19 @@ Make sure you test on different kinds of maps. A couple examples are contained i
 Close your eyes and imagine yourself in the maze. It's pitch black and the you're standing on the start tile. You can drop a candle on each tile of the maze to illuminate the ones around it. How do you find your way to the end? Luckily there's no minotaur in this one (but it'd be pretty sweet if you added it later).
 
 
-## Release 4, Show and Tell
+## Release 2, Show and Tell
 
-We want to visualize the search pattern of your algorithm as it works step-by-step. For example:
+We want to visualize the search pattern of your algorithm as it works step-by-step. For example it might look like this:
 
 ![](assets/dfs.gif)
 
-You can animate your algorithm's progress by doing this with each step:
+_Note that it's not expected your algorithm finds a path to the end on the first try, we just got lucky in the above example_
 
- * Clearing the screen (see below)
- * Printing out some representation of your map
+You can animate your algorithm's progress by doing this with each step of your exploration.
+
+ * Explore a tile
+ * Clear the screen (see below)
+ * Print out some representation of your map
  * `sleep(0.1)` to make things pause between steps
 
 This will help you see what's happening as you attempt to solve a maze.
@@ -161,8 +143,8 @@ One should look something like this:
 
 ![](assets/dfs.gif)
 
-And the other should look like this:
+And the other might look like this:
 
 ![](assets/bfs.gif)
 
-See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other explores all paths, one cell at a time. Believe it or not, these two approaches are basically the same except for one minor detail.
+See the difference? When a branch is encountered, one seems to follow a path entirely before trying something else. The other algorithm explores all paths simulatenously, one cell at a time. Believe it or not, these two approaches are basically the same except for _one minor detail_.
