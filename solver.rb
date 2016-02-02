@@ -6,11 +6,3 @@ def read_maze(file)
   end
   maze
 end
-
-
-#This method prints a 2D array of a maze
-def print_maze(maze)
-  maze.each do |row|
-    puts row.join("")
-  end
-end
