@@ -33,7 +33,7 @@ You have been given a method called `read_maze` to get you started. It takes a f
 
 ## Release 1, Small Problems First
 
-Your task is to write a **recursive** algorithm that determines if a map is solvable or not. Your `is_solvable` method, however it is written, should return `true` if the finish (`*`) is reachable from the start (`o`). It should return `false` if it is impossible to reach the end (no path exists). You do not need to actually return the path itself.
+Your task is to write a **recursive** algorithm that determines if a map is solvable or not. Your `is_solvable?` method, however it is written, should return `true` if the finish (`*`) is reachable from the start (`o`). It should return `false` if it is impossible to reach the end (no path exists). You do not need to actually return the path itself.
 
 But this is a big problem! If we're going to make any headway we'll need to break it down. Before you begin, work with your pair to think about what kinds of questions you'll need to answer. Here are a few to get you started:
 
@@ -54,7 +54,7 @@ Now that we've written methods that answer some of our smaller questions, we can
 
 To recap, here's our task:
 
-> Your task is to write a recursive algorithm that determines if a map is solvable or not. Your `is_solvable` method, however it is written, should return `true` if the finish (`*`) is reachable from the start (`o`). It should return `false` if it is impossible to reach the end (no path exists). You do not need to actually return the path itself.
+> Your task is to write a recursive algorithm that determines if a map is solvable or not. Your `is_solvable?` method, however it is written, should return `true` if the finish (`*`) is reachable from the start (`o`). It should return `false` if it is impossible to reach the end (no path exists). You do not need to actually return the path itself.
 
 
 Hint: your recursive algorithm will need to explore a cell at a time until it finds the end, or determines that the end is unreachable. How will it explore recursively? How will it know if it found the end? How will it know if the end can't be reached?
