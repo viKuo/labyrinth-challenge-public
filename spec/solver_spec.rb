@@ -45,12 +45,31 @@ describe "Solver" do
 
   it 'finds walkable directions' do
   	solver.read_maze(file2)
-  	expect(solver.find_directions([2,0])).to eq [[1,0], [2,1]]
+  	expect(solver.list_possible_directions([4,6])).to eq [[3,6],[4,5]]
   end
 
   it 'changes walked-on paths to # sign' do
   	solver.read_maze(file2)
   	expect { solver.walk(2,0) }.to change { solver.maze[2][0] }
+  end
+
+  it 'does not find walked-on paths to be tarversible' do
+  	solver.read_maze(file2)
+  	solver.walk(0,0)
+  	solver.walk(1,0)
+  	expect(solver.list_possible_directions([1,0])).to eq [[2,0]]
+  end
+
+  it 'returns an emtpy array if there is no where to traverse' do
+  	solver.read_maze(file2)
+  	solver.walk(0,0)
+  	solver.walk(2,0)
+  	expect(solver.list_possible_directions([1,0]).empty?).to eq true
+  end
+
+  it 'finds ending walkable' do
+  	solver.read_maze(file2)
+  	expect(solver.traversable?([3,8])).to eq true
   end
 
 end

@@ -14,18 +14,43 @@ class Solver
 	def start_solver
 		start = find{ "o" }
 		@end ||= find{ "*" }
-		solve(start)
+		if solve_recursively(start) == true
+			puts "Solved!"
+		else
+			puts "Unsolvable"
+		end
 	end
 
-	def solve(location)
-		next_direction = list_cardinal_dir(location)
-		if next_direction.include?(@end) then return true end
+	def solve_iteratively(put_in, take_out)
+		start = find{ "o" }
+		@end ||= find{ "*" }
+		location = start
+		finished = false
+		until finished == true
+			directions = list_possible_directions(location)
+			directions.each do |direction|
+				put_in.call(direction)
+			end
+			location = take_out.call
+			walk(location[0], location[1])
+			reset_screen
+			maze_visualization
+			sleep(0.5)
+			location == @end ? finished = true : finished = false
+		end 
+	end
+
+	def solve_recursively(location)
+		next_direction = list_possible_directions(location)
+		return true if next_direction.include?(@end)
+		return false if next_direction.empty?
 		next_direction.each do |dir|
 			walk(dir[0], dir[1])
 			reset_screen
-			puts maze_visualization
+			maze_visualization
 			sleep(0.5)
-			if solve(dir) then return "solved!" end
+			result = solve(dir)
+			if result == true then return true end
 		end
 	end
 
@@ -39,9 +64,9 @@ class Solver
 		end
 	end
 
-	def find_directions(location)
+	def list_possible_directions(location)
 		return_array = []
-		list_cardinal_dir(location).each do |coord|
+			list_cardinal_dir(location).each do |coord|
 			if traversable?(coord) then return_array << coord end
 		end
 		return_array
@@ -50,21 +75,23 @@ class Solver
 	def list_cardinal_dir(location)
 		return_array = [[location[0]-1, location[1]], [location[0]+1, location[1]], [location[0],location[1]-1], [location[0], location[1]+1]]
 		return_array.delete_if do |row, column|
-			!(0..@maze.size).include?(row) || !(0..@maze[0].size).include?(column)
+			!(0...@maze.size).include?(row) || !(0...@maze[0].size).include?(column)
 		end
 	end
-
+ 
 	def traversable?(location)
-		return true if @maze[location[0]][location[1]] == "."
+		if @maze[location[0]][location[1]] == "." || @maze[location[0]][location[1]] == "*" then return true end
 		false
 	end
 
 	def walk(row, column)
-		@maze[row][column] = "#"
+		@maze[row][column] = "x"
 	end
 
 	def maze_visualization
-		puts @maze
+		@maze.each do |row|
+			p row.join
+		end
 	end
 
 	# The following methods will help us
@@ -86,12 +113,3 @@ def move_to_home
 end
 end
 
-
-
-maze_solver = Solver.new
-maze_solver.read_maze("map.1.txt")
-# puts maze_solver.maze
-# # maze_solver.reset_screen
-# puts maze_solver.maze_visualization
-# sleep(1)
-# p maze_solver.start_solver
