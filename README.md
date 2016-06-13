@@ -1,7 +1,7 @@
 #Programmer's notes
 This was a challenge I completed during my time at Dev Bootcamp. It demonstrates my skills in algoirthmic thinking, implementing data strucutres, recursive and iterative solutions, test-driven-development using rspec tests, and my ability to produce clean, dry code given the time to polish my work.
 
-The code base includes traditional data structures such as queues, stacks, linked lists, and nodes. While ruby implements these data structures for its users, it was a side project I included to verify that my implementation of these data structures work.
+The code base includes traditional data structures such as queues, stacks, linked lists, and nodes. While ruby implements these data structures for its users, it was a side project I included to verify that my implementation of these data structures work. The difference between a queue implementation vs a stack implementation is a breadth vs depth search as shown in the 2 gif files at the bottom of the problem.
 
 You can run the code via the command line by
 ```
