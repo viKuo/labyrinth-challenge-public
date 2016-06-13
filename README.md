@@ -1,3 +1,16 @@
+#Programmer's notes
+This was a challenge I completed during my time at Dev Bootcamp. It demonstrates my skills in algoirthmic thinking, implementing data strucutres, recursive and iterative solutions, test-driven-development using rspec tests, and my ability to produce clean, dry code given the time to polish my work.
+
+The code base includes traditional data structures such as queues, stacks, linked lists, and nodes. While ruby implements these data structures for its users, it was a side project I included to verify that my implementation of these data structures work.
+
+You can run the code via the command line by
+```
+ruby runner.rb OPTION MAZE_MAP
+```
+where the options are ```stack```, ```queue```, or ```recursive```
+and the maze maps are txt files
+
+Below is the original description of the problem.
 # Labyrinth
 
 > "So it was that the hero met the Minotaur in the gloomy depths of the Labyrinth and was not afraid." —Theseus and the Minotaur
@@ -73,36 +86,3 @@ The iterative version can, with a relatively small change, behave in one of two 
 ![](assets/bfs.gif)
 
 Can you create iterative solutions that mimic both?
-
-## Stretch 2, Harder Mazes & Open Terrain
-
-Run your solver against harder maps or more open terrain. Does it work? If not, why? What did you have to change to get it to work?
-
-```
-...#.....#
-...#.#.#.#
-...#.#.#.#
-.#...#.#*#
-.#########
-........o.
-####.#####
-..........
-.###.####.
-...#......
-```
-
-
-```
-.................
-........#........
-........#.*......
-........#........
-........#........
-........#........
-........#........
-........#........
-........#........
-.o......#........
-........#........
-.................
-```
