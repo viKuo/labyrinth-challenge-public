@@ -1,26 +1,3 @@
-def calculate(array)
-  stack = Stack.new
-  array.each do |item|
-    if (0..9).include?(item)
-      stack.push(item)
-    else
-      value_1 = stack.pop
-      value_2 = stack.pop
-      case item
-      when "+"
-        result = value_1 + value_2
-      when "-"
-        result = value_2 - value_1
-      when "x"
-        result = value_1 * value_2
-      end
-      stack.push(result)
-    end
-  end
-  stack.pop
-end
-
-
 class Stack
   attr_accessor :length
   def initialize

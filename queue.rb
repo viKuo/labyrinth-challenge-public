@@ -118,14 +118,3 @@ class LinkedList
     array
   end
 end
-
-# linked = LinkedList.new
-# linked.insert_last(1)
-# linked.insert_last(2)
-# linked.insert_last(3)
-# linked.insert_last(4)
-# linked.insert_last(5)
-
-# removed_node = linked.remove_first
-
-# p removed_node.element

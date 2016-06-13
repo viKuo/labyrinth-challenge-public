@@ -15,12 +15,12 @@ describe "Solver" do
 
   it 'finds the start of the maze' do
   	solver.read_maze(file2)
-  	expect(solver.find{ "o" }).to eq [0,0]
+  	expect(solver.find_coordinate{ "o" }).to eq [0,0]
   end
 
   it 'finds the end of the maze' do
   	solver.read_maze(file2)
-  	expect(solver.find{ "*" }).to eq [3,8]
+  	expect(solver.find_coordinate{ "*" }).to eq [3,8]
   end
 
   it 'finds a wall not traversable' do

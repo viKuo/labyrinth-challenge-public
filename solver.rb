@@ -2,7 +2,6 @@ require_relative 'reset_screen'
 
 class Solver
 	attr_reader :maze
-	#This method reads a file into a 2D array. See `spec/solver_spec.rb`
 	def read_maze(file)
 	  @maze = []
 	  File.open(file).each do |file_row|
@@ -11,20 +10,16 @@ class Solver
 	  @maze
 	end
 
-	def start_solver
-		start = find{ "o" }
-		@end ||= find{ "*" }
-		if solve_recursively(start) == true
-			puts "Solved!"
-		else
-			puts "Unsolvable"
-		end
+	def start_recursive_solver
+		start_coordinate = find_coordinate{ "o" }
+		@end_coordinate ||= find_coordinate{ "*" }
+		solvable?(solve_recursively(start_coordinate))
 	end
 
 	def solve_iteratively(put_in, take_out)
-		start = find{ "o" }
-		@end ||= find{ "*" }
-		location = start
+		start_coordinate = find_coordinate{ "o" }
+		@end_coordinate ||= find_coordinate{ "*" }
+		location = start_coordinate
 		finished = false
 		until finished == true
 			directions = list_possible_directions(location)
@@ -32,29 +27,35 @@ class Solver
 				put_in.call(direction)
 			end
 			location = take_out.call
+			break if location == nil
 			walk(location[0], location[1])
-			reset_screen
-			maze_visualization
-			sleep(0.5)
-			location == @end ? finished = true : finished = false
-		end 
+			visualize_step
+			location == @end_coordinate ? finished = true : finished = false
+		end
+		solvable?(finished)
 	end
 
 	def solve_recursively(location)
+		return true if location == @end_coordinate
 		next_direction = list_possible_directions(location)
-		return true if next_direction.include?(@end)
-		return false if next_direction.empty?
 		next_direction.each do |dir|
 			walk(dir[0], dir[1])
-			reset_screen
-			maze_visualization
-			sleep(0.5)
-			result = solve(dir)
+			visualize_step
+			result = solve_recursively(dir)
 			if result == true then return true end
+		end
+		false
+	end
+
+	def solvable?(boolean)
+		if boolean
+			puts "Solved!"
+		else
+			puts "Unsolvable"
 		end
 	end
 
-	def find
+	def find_coordinate
 		@maze.each_index do |row|
 			@maze[row].each_index do |column|
 				if @maze[row][column] == yield
@@ -65,23 +66,25 @@ class Solver
 	end
 
 	def list_possible_directions(location)
-		return_array = []
-			list_cardinal_dir(location).each do |coord|
-			if traversable?(coord) then return_array << coord end
-		end
-		return_array
+		list_cardinal_dir(location).select { |coord| traversable?(coord) }
 	end
 
 	def list_cardinal_dir(location)
 		return_array = [[location[0]-1, location[1]], [location[0]+1, location[1]], [location[0],location[1]-1], [location[0], location[1]+1]]
-		return_array.delete_if do |row, column|
+		return_array.reject do |row, column|
 			!(0...@maze.size).include?(row) || !(0...@maze[0].size).include?(column)
 		end
 	end
- 
+
 	def traversable?(location)
 		if @maze[location[0]][location[1]] == "." || @maze[location[0]][location[1]] == "*" then return true end
 		false
+	end
+
+	def visualize_step
+		reset_screen
+		maze_visualization
+		sleep(0.2)
 	end
 
 	def walk(row, column)
